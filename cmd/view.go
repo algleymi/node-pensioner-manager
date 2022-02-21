@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"sort"
 
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
@@ -53,6 +54,15 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, cmd
 }
 
+func sortedMapKeys(items map[string]int) []string {
+	var keys []string
+	for key := range items {
+		keys = append(keys, key)
+	}
+	sort.Strings(keys)
+	return keys
+}
+
 func (m model) View() string {
 	var result string
 
@@ -60,8 +70,8 @@ func (m model) View() string {
 		result += "Previous guesses:\n\n"
 	}
 
-	for key, element := range m.guesses {
-		result += fmt.Sprintf("%s: %d\n", key, element)
+	for _, key := range sortedMapKeys(m.guesses) {
+		result += fmt.Sprintf("%s: %d\n", key, m.guesses[key])
 	}
 
 	result += "\n"
