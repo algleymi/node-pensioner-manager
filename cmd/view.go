@@ -12,7 +12,6 @@ import (
 type model struct {
 	textInput textinput.Model
 	guesses   map[string]int
-	hasResult bool
 }
 
 func InitialModel() model {
@@ -24,7 +23,6 @@ func InitialModel() model {
 
 	return model{
 		textInput: ti,
-		hasResult: false,
 		guesses:   map[string]int{},
 	}
 }
@@ -35,8 +33,6 @@ func (m model) Init() tea.Cmd {
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
-
-	m.hasResult = false
 
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
