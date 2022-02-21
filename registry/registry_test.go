@@ -6,8 +6,14 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_GetRegistryReturnsBody(t *testing.T) {
-	response := GetRegistryMetadata()
+func Test_GetVleesbroodsUnbgPackageMetadataReturnsAge(t *testing.T) {
+	response := GetPackageAge("@vleesbrood/unbg")
 
-	assert.Equal(t, response, "registry")
+	assert.Greater(t, response, 2)
+}
+
+func Test_GetInflightMetadataReturnsAge(t *testing.T) {
+	response := GetPackageAge("inflight")
+
+	assert.Greater(t, response, 2)
 }
