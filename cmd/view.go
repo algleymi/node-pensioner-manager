@@ -38,8 +38,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.Type {
 		case tea.KeyEnter:
-			age := registry.GetPackageAge(m.textInput.Value())
-			m.guesses[m.textInput.Value()] = age
+			packageName := m.textInput.Value()
+			age := registry.GetPackageAge(packageName)
+			m.guesses[packageName] = age
+
+			m.textInput.SetValue("")
+
 			return m, cmd
 		case tea.KeyCtrlC, tea.KeyEsc:
 			return m, tea.Quit
