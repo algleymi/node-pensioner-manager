@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
 	"sort"
 
@@ -12,6 +13,7 @@ import (
 type model struct {
 	textInput textinput.Model
 	guesses   map[string]int
+	err       error
 }
 
 func InitialModel() model {
@@ -38,11 +40,19 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.Type {
 		case tea.KeyEnter:
+			m.err = nil
+
 			packageName := m.textInput.Value()
-			age := registry.GetPackageAge(packageName)
-			m.guesses[packageName] = age
+			age, err := registry.GetPackageAge(fmt.Sprintf("https://registry.npmjs.com/%s", packageName))
 
 			m.textInput.SetValue("")
+
+			if err != nil {
+				m.err = err
+				return m, cmd
+			}
+
+			m.guesses[packageName] = age
 
 			return m, cmd
 		case tea.KeyCtrlC, tea.KeyEsc:
@@ -75,6 +85,10 @@ func (m model) View() string {
 	}
 
 	result += "\n"
+
+	if errors.Is(m.err, registry.ErrorPackageNotFound) {
+		result += "Can't find that one... Try again!\n"
+	}
 
 	result += fmt.Sprintf(
 		"Give me a package name!\n\n%s\n\n%s",
