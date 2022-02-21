@@ -1,8 +1,7 @@
-all: get lint test
+.PHONY: all lint test
+all: lint test
 
 lint:
 	go fmt ./...
 test:
 	go test ./... -cover
-deps:
-	go list -m -u all
