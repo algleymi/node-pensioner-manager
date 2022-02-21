@@ -5,24 +5,37 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 )
 
-type RegistryMetadata struct {
-	DbName string `json:"db_name"`
+type PackageMetadata struct {
+	Time     map[string]string `json:"time"`
+	DistTags DistTags          `json:"dist-tags"`
 }
 
-func GetRegistryMetadata() string {
-	response, err := http.Get("https://registry.npmjs.org")	
+type DistTags struct {
+	Latest string `json:"latest"`
+}
+
+type PackageTimeMetadata struct {
+	Modified string `json:"modified"`
+}
+
+func GetPackageAge(packageName string) int {
+	response, err := http.Get("https://registry.npmjs.org/" + packageName)
 	fatalIfError(err)
 	defer response.Body.Close()
 
-	var metadata RegistryMetadata
+	var metadata PackageMetadata
 	body, err := ioutil.ReadAll(response.Body)
 	fatalIfError(err)
 
 	json.Unmarshal(body, &metadata)
 
-	return metadata.DbName
+	parsedTime, err := time.Parse(time.RFC3339, metadata.Time[metadata.DistTags.Latest])
+	fatalIfError(err)
+
+	return int(time.Since(parsedTime).Hours() / 24 / 365)
 }
 
 func fatalIfError(err error) {
