@@ -1,4 +1,4 @@
-.PHONY: all lint test
+.PHONY: lint test
 all: lint test
 
 lint:
