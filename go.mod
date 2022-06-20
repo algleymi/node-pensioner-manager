@@ -2,7 +2,7 @@ module refsiverdur.org/node-pensioner-manager/v2
 
 go 1.17
 
-require github.com/stretchr/testify v1.7.2
+require github.com/stretchr/testify v1.7.3
 
 require (
 	github.com/atotto/clipboard v0.1.4 // indirect
@@ -23,7 +23,7 @@ require (
 require (
 	github.com/charmbracelet/bubbles v0.11.0
 	github.com/charmbracelet/bubbletea v0.21.0
-	github.com/davecgh/go-spew v1.1.0 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
