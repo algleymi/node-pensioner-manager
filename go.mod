@@ -2,7 +2,7 @@ module refsiverdur.org/node-pensioner-manager/v2
 
 go 1.17
 
-require github.com/stretchr/testify v1.7.5
+require github.com/stretchr/testify v1.8.0
 
 require (
 	github.com/atotto/clipboard v0.1.4 // indirect
