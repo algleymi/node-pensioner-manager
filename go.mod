@@ -23,7 +23,7 @@ require (
 )
 
 require (
-	github.com/charmbracelet/bubbles v0.13.0
+	github.com/charmbracelet/bubbles v0.14.0
 	github.com/charmbracelet/bubbletea v0.22.1
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
