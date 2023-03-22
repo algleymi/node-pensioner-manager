@@ -81,7 +81,7 @@ func (m model) View() string {
 	}
 
 	for _, key := range sortedMapKeys(m.guesses) {
-		result += fmt.Sprintf("%s: %d\n", key, m.guesses[key])
+		result += fmt.Sprintf("%s: %d years\n", key, m.guesses[key])
 	}
 
 	result += "\n"
